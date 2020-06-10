@@ -161,6 +161,22 @@ class SeleniumDriver:
              self.log.error("Element send keys not successful with locator: " + locator +
                             " and locator type: " + locator_type)
 
+    def get_attribute(self, locator, locator_type, attribute_name):
+        attribute = None
+        try:
+            element = self.get_element(locator, locator_type)
+            attribute = element.get_attribute(attribute_name)
+            self.log.info("Element click successful with locator: " + locator +
+                          " and locator type: " + locator_type)
+        except:
+            self.log.error("Element click not successful with locator: " + locator +
+                           " and locator type: " + locator_type)
+
+        return attribute
+
+
+        pass
+
 
 
 

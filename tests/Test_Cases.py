@@ -1,7 +1,7 @@
 from Project.pages.login_pages import LoginPage
-from Project.pages.cloud_service import CloudServicePage
 from Project.pages.data_modification import DataModification
 from Project.pages.data_modification_check import DataModificationCheck
+from Project.pages.report_test import ReportTest
 import unittest
 import time
 import pytest
@@ -13,9 +13,9 @@ class LoginTest(unittest.TestCase):
     @pytest.fixture(autouse=True)
     def classSetup(self):
         self.lp = LoginPage(self.driver)
-        self.csp = CloudServicePage(self.driver)
         self.dm = DataModification(self.driver)
         self.dmc = DataModificationCheck(self.driver)
+        self.rt = ReportTest(self.driver)
 
     # @pytest.mark.run(order=1)
     # def test_invalid_login(self):
@@ -30,26 +30,22 @@ class LoginTest(unittest.TestCase):
         assert self.lp.verify_login_successful() is True  # Verify login successful
 
     @pytest.mark.run(order=3)
-    def test_iamuser_on_page(self):
-        self.csp.goto_iam_users()
-        assert self.csp.verify_successful_navigation() is True
+    def test_check_report(self):
+        self.rt.goto_iam_users()
+        assert self.rt.verify_result_report() is True
 
     @pytest.mark.run(order=4)
-    def test_verify_page(self):
-        assert self.csp.verify_result_report() is True
-
-    @pytest.mark.run(order=5)
     def test_admin_area(self):
         assert self.dm.select_administration() is True
 
-    @pytest.mark.run(order=6)
+    @pytest.mark.run(order=5)
     def test_goto_integration_api(self):
         assert self.dm.integration_api() is True
 
-    @pytest.mark.run(order=7)
+    @pytest.mark.run(order=6)
     def test_modify_data(self):
         assert self.dm.expand_user_connector() is True
 
-    @pytest.mark.run(order=8)
+    @pytest.mark.run(order=7)
     def test_modication_check(self):
         self.dmc.validate_leanix_scan_agent_user()

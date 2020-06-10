@@ -34,10 +34,10 @@ def oneTimeSetUp(request, browser):
 
     yield driver
     driver.quit()
-    sleep(2)
+    sleep(1)
     # Send email with Report attachment
-    email = EmailTest('kumar.akshat04@gmail.com', 'Test Email', 'Execution Report', r'F:\LeanIX_Assessment\Report.html')
-    email.send_email()
+    # email = EmailTest('kumar.akshat04@gmail.com', 'Test Email', 'Execution Report', r'F:\LeanIX_Assessment\Report.html')
+    # email.send_email()
     print("Running one time tearDown")
 
 
