@@ -36,6 +36,7 @@ class LoginPage(SD):
         sleep(2)
 
         # #---------------------------- Temporary Code ------------------------ #
+        # Clicking Dashboard, because of error in page
         self.element_click("//span[contains(@class,'hideForSmall') and contains(text(),'Dashboard')]", "xpath")
 
     def verify_login_successful(self):

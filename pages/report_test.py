@@ -1,6 +1,6 @@
 from time import sleep
 from Project.base.selenium_driver import SeleniumDriver as SD
-from Project.base.Read_from_json import ReadJson
+from Project.utility.read_from_json import ReadJson
 
 
 class ReportTest(SD):
@@ -51,6 +51,10 @@ class ReportTest(SD):
         json_read = ReadJson()
         property_details_dict = json_read.get_user_property_details()
 
+        print("Dictionary of ADK_Name and AccessKeyAge received from JSON File..")
+        print(property_details_dict)
+
+        # Verify the age falls in which category of _age_limit_list
         # Verify range in report - index + 2
         for adk, age in property_details_dict.items():
             if age == 'n/a':
@@ -72,13 +76,16 @@ class ReportTest(SD):
                 if num == 0:
                     num = self._verication_lst[-1]
 
-                age_index = self._verication_lst.index(num) + 2  # +2, age_limit_list is 2 more than _verication_lst
+                # +2, as _age_limit_list is 2 more than _verication_lst
+                age_index = self._verication_lst.index(num) + 2
 
                 # dictionary - age:xpath -- bg color
                 xpath = self._age_map[self._age_limit_list[age_index]]
 
             # Find age bg color on report based on xpath
             attr_dict[adk] = self.get_attribute(xpath, 'xpath', 'style')  # {adk_name: style} from age range
+            print("Dictionary of ADK_Name and respective age limit Style value..")
+            print(attr_dict)
         return attr_dict
 
     def get_aws_box_attribute_bg_clr(self):
@@ -87,6 +94,8 @@ class ReportTest(SD):
 
         self.switch_to_frame(0)  # Switch Frame
 
+        print("Getting Title and Style value of ADK Names form the AWS Box...")
+        print("Creating Dictionary of ADK_Name and Style Value in the box...")
         scan_agent_user_bg = self.get_attribute(self._leanix_scan_user_xpath, 'xpath', 'style')
         scan_agent_user_title = self.get_attribute(self._leanix_scan_user_xpath, 'xpath', 'title')
         attr_dict[scan_agent_user_title] = scan_agent_user_bg  # {adk_title(name): style}
@@ -95,14 +104,13 @@ class ReportTest(SD):
         access_ldif_bucket_title = self.get_attribute(self._leanix_ldif_bucket_xpath, 'xpath', 'title')
         attr_dict[access_ldif_bucket_title] = access_ldif_bucket_bg  # {adk_title(name): style}
 
-        sleep(1)
-
         # Back to original frame
         self.switch_to_original_frame()
+        print(attr_dict)
         return attr_dict
 
     def verify_result_report(self):
-        # Make sure we navigated to the correct page
+        print("Make sure we navigated to the correct page, to avoid unnecessary executions")
         title = self.get_page_title()
         if self._iamuser_page_title in title:
             age_attr_btn_dict = self.get_age_attribute_bg_clr()
@@ -113,6 +121,7 @@ class ReportTest(SD):
             print(aws_box_attr_dict)
 
             # This will verify correct color code for all ADK_Name in the box
+            print("Verifying ADK name -> matches from JSON file and respective bg color -> matches age range above..")
             for i in range(len(aws_box_attr_dict.keys())):
                 if not list(age_attr_btn_dict.keys())[i] in list(aws_box_attr_dict.keys())[i]:
                     return False

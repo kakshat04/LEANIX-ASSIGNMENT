@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
+from selenium.webdriver import ActionChains
 from Project.utility.custom_logging import custom_logger as cl
 import logging
 
@@ -166,16 +167,56 @@ class SeleniumDriver:
         try:
             element = self.get_element(locator, locator_type)
             attribute = element.get_attribute(attribute_name)
-            self.log.info("Element click successful with locator: " + locator +
+            self.log.info("Get Attribute successful with locator: " + locator +
                           " and locator type: " + locator_type)
         except:
-            self.log.error("Element click not successful with locator: " + locator +
+            self.log.error("Get Attribute not successful with locator: " + locator +
                            " and locator type: " + locator_type)
 
         return attribute
 
+    def perform_action_chains(self, locator, locator_type, action):
+        element = None
+        try:
+            element = self.get_element(locator, locator_type)
+            ActionChains(self.driver).move_to_element(element).perform()
+            if action == "click":
+                element.click()
+            self.log.info("Action Chain successful with locator: " + locator +
+                          " and locator type: " + locator_type)
+        except:
+            self.log.error("Action Chain not successful with locator: " + locator +
+                           " and locator type: " + locator_type)
+        return element
 
-        pass
+    def get_element_text(self, locator, locator_type):
+        text = None
+        try:
+            element = self.get_element(locator, locator_type)
+            text = element.text
+            self.log.info("Text Found successful with locator: " + locator +
+                          " and locator type: " + locator_type)
+        except:
+            self.log.error("Text Found not successful with locator: " + locator +
+                           " and locator type: " + locator_type)
+        return text
+
+    def enter_text_in_textarea(self, locator, locator_type, text):
+        try:
+            z = self.get_element(locator, locator_type)
+            z.send_keys(Keys.CONTROL + 'a')
+            z.send_keys(Keys.DELETE)
+            z.send_keys(text)
+            print(text)
+            self.log.info("Text Found successful with locator: " + locator +
+                          " and locator type: " + locator_type)
+        except:
+            self.log.error("Text Found not successful with locator: " + locator +
+                           " and locator type: " + locator_type)
+
+
+
+
 
 
 

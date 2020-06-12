@@ -2,6 +2,9 @@ import pytest
 from selenium import webdriver
 from Project.utility.send_email import EmailTest
 from time import sleep
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 @pytest.yield_fixture()
 def setUp():
@@ -26,14 +29,13 @@ def oneTimeSetUp(request, browser):
         driver.maximize_window()
         driver.implicitly_wait(3)
         driver.get(baseURL)
-        driver.switch_to.default_content()
         print("Running tests on chrome")
 
     if request.cls is not None:
         request.cls.driver = driver
 
     yield driver
-    driver.quit()
+    # driver.quit()
     sleep(1)
     # Send email with Report attachment
     # email = EmailTest('kumar.akshat04@gmail.com', 'Test Email', 'Execution Report', r'F:\LeanIX_Assessment\Report.html')

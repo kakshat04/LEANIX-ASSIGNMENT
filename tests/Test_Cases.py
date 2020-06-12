@@ -35,17 +35,13 @@ class LoginTest(unittest.TestCase):
         assert self.rt.verify_result_report() is True
 
     @pytest.mark.run(order=4)
-    def test_admin_area(self):
-        assert self.dm.select_administration() is True
+    def test_data_modification(self):
+        assert self.dm.navigate_integration_api() is True
+        self.dm.data_modify_security_warn_level()
+        input("Copy json to leanix site, Run the script, then click enter to continue ....... ")
+        # self.dm.json_ldif_load()  This code to be uncommented when loading logic is in place
 
     @pytest.mark.run(order=5)
-    def test_goto_integration_api(self):
-        assert self.dm.integration_api() is True
-
-    @pytest.mark.run(order=6)
-    def test_modify_data(self):
-        assert self.dm.expand_user_connector() is True
-
-    @pytest.mark.run(order=7)
-    def test_modication_check(self):
-        self.dmc.validate_leanix_scan_agent_user()
+    def test_modification_check(self):
+        assert self.dmc.validate_leanix_scan_agent_user() is True
+        assert self.dmc.validate_leanix_access_ldif_bucket() is True
