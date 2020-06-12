@@ -24,6 +24,8 @@ class DataModificationCheck(SD):
         age_violation = {}
 
         print("Click on Show more properties..")
+        self.execute_javascript("window.scrollBy(0,100)")
+        sleep(1)
         self.element_click(self._more_properties_xpath, 'xpath')
         sleep(1)
 

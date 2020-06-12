@@ -38,8 +38,6 @@ class LoginTest(unittest.TestCase):
     def test_data_modification(self):
         assert self.dm.navigate_integration_api() is True
         self.dm.data_modify_security_warn_level()
-        input("Copy json to leanix site, Run the script, then click enter to continue ....... ")
-        # self.dm.json_ldif_load()  This code to be uncommented when loading logic is in place
 
     @pytest.mark.run(order=5)
     def test_modification_check(self):

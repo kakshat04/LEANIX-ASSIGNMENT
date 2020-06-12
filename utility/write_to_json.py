@@ -10,6 +10,7 @@ class WriteJson:
     def write_security_warn_level(self):
         with open(r'F:\LeanIX_Assessment\Assessment\assessment.json', 'r') as f:
             playlist = json.load(f)
+            age_security_dict = {}
 
             for i in range(len(playlist["content"])):
                 if "AmazonIamUser" in playlist["content"][i]['type']:
@@ -17,16 +18,20 @@ class WriteJson:
                     if 0 <= int(age) <= 30:
                         playlist["content"][i]["data"]["Properties"]["violationLevelSecurity"] = ""
                         print(f"Age {age}, within range 0-30 found, updating 'violationLevelSecurity' with ''")
+                        age_security_dict[age] = ""
                     elif 31 <= int(age) <= 60:
                         playlist["content"][i]["data"]["Properties"]["violationLevelSecurity"] = "low"
                         print(f"Age {age}, within range 31-60 found, updating 'violationLevelSecurity' with 'low'")
+                        age_security_dict[age] = "low"
                     elif int(age) > 60:
                         playlist["content"][i]["data"]["Properties"]["violationLevelSecurity"] = "medium"
                         print(f"Age {age}, >60 found, updating 'violationLevelSecurity' with 'medium'")
+                        age_security_dict[age] = "medium"
 
         with open(r'F:\LeanIX_Assessment\Assessment\assessment.json', 'w') as f1:
             json.dump(playlist, f1)
-        return playlist
+        # return json.dumps(playlist), age_security_dict
+        return json.dumps(playlist)
 
 
 if __name__ == '__main__':

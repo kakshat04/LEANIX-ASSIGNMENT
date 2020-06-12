@@ -6,6 +6,7 @@ from selenium.common.exceptions import *
 from selenium.webdriver import ActionChains
 from Project.utility.custom_logging import custom_logger as cl
 import logging
+import pyperclip
 
 
 class SeleniumDriver:
@@ -206,8 +207,9 @@ class SeleniumDriver:
             z = self.get_element(locator, locator_type)
             z.send_keys(Keys.CONTROL + 'a')
             z.send_keys(Keys.DELETE)
-            z.send_keys(text)
-            print(text)
+            # z.send_keys(text)  # This is taking lot of time to enter complete text
+            pyperclip.copy(text)  # Copy text to clipboard
+            z.send_keys(Keys.CONTROL + 'v')
             self.log.info("Text Found successful with locator: " + locator +
                           " and locator type: " + locator_type)
         except:

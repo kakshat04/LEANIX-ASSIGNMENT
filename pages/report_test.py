@@ -84,8 +84,9 @@ class ReportTest(SD):
 
             # Find age bg color on report based on xpath
             attr_dict[adk] = self.get_attribute(xpath, 'xpath', 'style')  # {adk_name: style} from age range
-            print("Dictionary of ADK_Name and respective age limit Style value..")
-            print(attr_dict)
+
+        print("Dictionary of ADK_Name(from json) and respective age limit Style value(in the report)..")
+        print(attr_dict)
         return attr_dict
 
     def get_aws_box_attribute_bg_clr(self):
@@ -94,8 +95,7 @@ class ReportTest(SD):
 
         self.switch_to_frame(0)  # Switch Frame
 
-        print("Getting Title and Style value of ADK Names form the AWS Box...")
-        print("Creating Dictionary of ADK_Name and Style Value in the box...")
+        print("Creating Dictionary of ADK_Name and Style Value(from AWS BOX)...")
         scan_agent_user_bg = self.get_attribute(self._leanix_scan_user_xpath, 'xpath', 'style')
         scan_agent_user_title = self.get_attribute(self._leanix_scan_user_xpath, 'xpath', 'title')
         attr_dict[scan_agent_user_title] = scan_agent_user_bg  # {adk_title(name): style}
@@ -120,7 +120,7 @@ class ReportTest(SD):
             print(age_attr_btn_dict)
             print(aws_box_attr_dict)
 
-            # This will verify correct color code for all ADK_Name in the box
+            # This will verifyrespective age limit Style value correct color code for all ADK_Name in the box
             print("Verifying ADK name -> matches from JSON file and respective bg color -> matches age range above..")
             for i in range(len(aws_box_attr_dict.keys())):
                 if not list(age_attr_btn_dict.keys())[i] in list(aws_box_attr_dict.keys())[i]:

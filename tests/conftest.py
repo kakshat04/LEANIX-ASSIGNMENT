@@ -2,15 +2,6 @@ import pytest
 from selenium import webdriver
 from Project.utility.send_email import EmailTest
 from time import sleep
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-
-@pytest.yield_fixture()
-def setUp():
-    print("Running method level setUp")
-    yield
-    print("Running method level tearDown")
 
 
 @pytest.yield_fixture(scope="class")
@@ -38,8 +29,12 @@ def oneTimeSetUp(request, browser):
     # driver.quit()
     sleep(1)
     # Send email with Report attachment
-    # email = EmailTest('kumar.akshat04@gmail.com', 'Test Email', 'Execution Report', r'F:\LeanIX_Assessment\Report.html')
-    # email.send_email()
+    recipient = 'kumar.akshat04@gmail.com'
+    subject = 'Test Email'
+    body = 'Execution Report'
+    report_path = r'F:\LeanIX_Assessment\Report.html'
+    email = EmailTest(recipient, subject, body, report_path)
+    email.send_email()
     print("Running one time tearDown")
 
 

@@ -1,6 +1,7 @@
 from time import sleep
 from Project.base.selenium_driver import SeleniumDriver as SD
 from Project.utility.write_to_json import WriteJson
+import json
 
 
 class DataModification(SD):
@@ -15,6 +16,7 @@ class DataModification(SD):
     _integration_api_xpath = "//a[contains(@class,'integrationApiLink')]"
     _user_connector = "//a[contains(text(),'cloudockit')]"
     _inbound_text_area_xpath = "/html/body//div[2]/div[2]/div[1]//div[1]/textarea"
+    _run_button_xpath = "//button[contains(text(),'Run')]"
 
     def navigate_integration_api(self):
         try:
@@ -25,17 +27,17 @@ class DataModification(SD):
             sleep(1)
 
             # Select Administration from drop down
-            self.element_click(self._administration_drop_down_xpath, "xpath")
+            self.element_click(self._administration_drop_down_xpath, 'xpath')
             sleep(1)
 
             print("Click on integration api tab...")
             # click on integration api tab
-            self.element_click(self._integration_api_xpath, "xpath")
+            self.element_click(self._integration_api_xpath, 'xpath')
             sleep(1)
 
             print("Click on user connector..")
             # Click on user connector
-            self.element_click(self._user_connector, "xpath")
+            self.element_click(self._user_connector, 'xpath')
             sleep(5)
             return True
         except:
@@ -57,10 +59,25 @@ class DataModification(SD):
         json_data = modify_json.write_security_warn_level()
         sleep(2)
 
+        print("Json file modified with respective Security Warn Levels....")
+
         # update in inbound
-        print("$$$$$$$$$$$$$$$$")
-        print(type(json_data))
-        self.enter_text_in_textarea(self._inbound_text_area_xpath, 'xpath', str(json_data))
+        print("Loading Json...")
+        self.enter_text_in_textarea(self._inbound_text_area_xpath, 'xpath', json_data)
+
+        sleep(2)
+        print("Json Loaded Successfully...")
+
+        # click on run
+        print("Run loaded Json..")
+        self.element_click(self._run_button_xpath, 'xpath')
+        print("Waiting for Run to complete")
+        sleep(12)
+
+        # if run successful, return True else False
+
+
+
 
 
 
