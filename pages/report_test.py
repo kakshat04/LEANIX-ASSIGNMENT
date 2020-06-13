@@ -1,9 +1,13 @@
 from time import sleep
 from Project.base.selenium_driver import SeleniumDriver as SD
 from Project.utility.read_from_json import ReadJson
+from Project.utility.custom_logging import custom_logger as cl
+import logging
 
 
 class ReportTest(SD):
+    log = cl(logging.DEBUG)
+
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
@@ -52,7 +56,9 @@ class ReportTest(SD):
         property_details_dict = json_read.get_user_property_details()
 
         print("Dictionary of ADK_Name and AccessKeyAge received from JSON File..")
+        self.log.info("Dictionary of ADK_Name and AccessKeyAge received from JSON File..")
         print(property_details_dict)
+        self.log.info(property_details_dict)
 
         # Verify the age falls in which category of _age_limit_list
         # Verify range in report - index + 2
@@ -86,7 +92,10 @@ class ReportTest(SD):
             attr_dict[adk] = self.get_attribute(xpath, 'xpath', 'style')  # {adk_name: style} from age range
 
         print("Dictionary of ADK_Name(from json) and respective age limit Style value(in the report)..")
+        self.log.info("Dictionary of ADK_Name(from json) and respective age limit Style value(in the report)..")
         print(attr_dict)
+        self.log.info(attr_dict)
+
         return attr_dict
 
     def get_aws_box_attribute_bg_clr(self):
@@ -96,6 +105,8 @@ class ReportTest(SD):
         self.switch_to_frame(0)  # Switch Frame
 
         print("Creating Dictionary of ADK_Name and Style Value(from AWS BOX)...")
+        self.log.info("Creating Dictionary of ADK_Name and Style Value(from AWS BOX)...")
+
         scan_agent_user_bg = self.get_attribute(self._leanix_scan_user_xpath, 'xpath', 'style')
         scan_agent_user_title = self.get_attribute(self._leanix_scan_user_xpath, 'xpath', 'title')
         attr_dict[scan_agent_user_title] = scan_agent_user_bg  # {adk_title(name): style}
@@ -106,7 +117,10 @@ class ReportTest(SD):
 
         # Back to original frame
         self.switch_to_original_frame()
+
         print(attr_dict)
+        self.log.info(attr_dict)
+
         return attr_dict
 
     def verify_result_report(self):
@@ -122,8 +136,23 @@ class ReportTest(SD):
 
             # This will verifyrespective age limit Style value correct color code for all ADK_Name in the box
             print("Verifying ADK name -> matches from JSON file and respective bg color -> matches age range above..")
+            self.log.info("Verifying ADK name -> matches from JSON file and "
+                          "respective bg color -> matches age range above..")
+
             for i in range(len(aws_box_attr_dict.keys())):
                 if not list(age_attr_btn_dict.keys())[i] in list(aws_box_attr_dict.keys())[i]:
+                    msg = "Report Verification Failed.." \
+                          "Mismatch in Age Range Color Code and respective AWS User Color Code or " \
+                          "User name in AWS does not match with appropriate ADK name from the json file for that " \
+                          "respective age"
+                    print(msg)
+                    self.log.error(msg)
                     return False
+            msg = "Report Verification Successful.." \
+                  "Match in Age Range Color Code and respective AWS User Color Code or " \
+                  "User name in AWS matches with appropriate ADK name from the json file for that " \
+                  "respective age"
+            print(msg)
+            self.log.info(msg)
             return True
 

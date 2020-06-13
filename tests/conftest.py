@@ -26,7 +26,7 @@ def oneTimeSetUp(request, browser):
         request.cls.driver = driver
 
     yield driver
-    driver.quit()
+    # driver.quit()
     sleep(1)
     # Send email with Report attachment
     recipient = 'kumar.akshat04@gmail.com'

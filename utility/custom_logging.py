@@ -4,7 +4,7 @@ import inspect
 
 def custom_logger(debug_level=logging.DEBUG):
     logger_name = inspect.stack()[1][3]
-    print("************", logger_name)
+    # print("************", logger_name)
     logger = logging.getLogger(logger_name)
     logger.setLevel(logging.DEBUG)
 

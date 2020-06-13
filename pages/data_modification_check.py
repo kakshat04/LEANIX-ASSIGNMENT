@@ -1,10 +1,14 @@
 from time import sleep
 from Project.base.selenium_driver import SeleniumDriver as SD
+from Project.utility.custom_logging import custom_logger as cl
 import os
 import ast
+import logging
 
 
 class DataModificationCheck(SD):
+    log = cl(logging.DEBUG)
+
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
@@ -64,26 +68,31 @@ class DataModificationCheck(SD):
         print("Get Age and Security Warn Level form leanIXScanAgentUser..")
         leanix_scan_agent_data = self.get_age_and_violation_details()
 
-        print("Verifying it against json data..")
-        age_security_dict = None
-        if 'age_security_warn_dict' in os.environ:
-            # Converting string back to dict
-            age_security_dict = ast.literal_eval(os.environ['age_security_warn_dict'])
+        # Verify if correct JSON file is uploaded i.e. violationLevelSecurity is present in the page
+        if leanix_scan_agent_data is not False:
+            print("Verifying it against json data..")
+            age_security_dict = None
+            if 'age_security_warn_dict' in os.environ:
+                # Converting string back to dict
+                age_security_dict = ast.literal_eval(os.environ['age_security_warn_dict'])
 
-        print("_________________Code to be Deleted ______________________")
-        print(age_security_dict)
-        print(type(age_security_dict))
-        print(leanix_scan_agent_data)
-        print(list(leanix_scan_agent_data.keys())[0])
-        print(leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]])
-        print(age_security_dict[list(leanix_scan_agent_data.keys())[0]])
-        print("_________________Code to be Deleted ______________________")
+            print("_________________Code to be Deleted ______________________")
+            print(age_security_dict)
+            print(type(age_security_dict))
+            print(leanix_scan_agent_data)
+            print(list(leanix_scan_agent_data.keys())[0])
+            print(leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]])
+            print(age_security_dict[list(leanix_scan_agent_data.keys())[0]])
+            print("_________________Code to be Deleted ______________________")
 
-        if list(leanix_scan_agent_data.keys())[0] in age_security_dict and \
-                leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]] == \
-                age_security_dict[list(leanix_scan_agent_data.keys())[0]]:
-            return True
+            if list(leanix_scan_agent_data.keys())[0] in age_security_dict and \
+                    leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]] == \
+                    age_security_dict[list(leanix_scan_agent_data.keys())[0]]:
+                return True
+            else:
+                return False
         else:
+            print("violationLevelSecurity not present on page..")
             return False
 
     def validate_leanix_access_ldif_bucket(self):
@@ -101,27 +110,30 @@ class DataModificationCheck(SD):
         # Verify age and violation
         leanix_access_ldif_data = self.get_age_and_violation_details()
 
-        print("Verifying it against json data..")
-        age_security_dict = None
-        if 'age_security_warn_dict' in os.environ:
-            # Converting string back to dict
-            age_security_dict = ast.literal_eval(os.environ['age_security_warn_dict'])
+        # Verify if correct JSON file is uploaded i.e. violationLevelSecurity is present in the page
+        if leanix_access_ldif_data is not False:
+            print("Verifying it against json data..")
+            age_security_dict = None
+            if 'age_security_warn_dict' in os.environ:
+                # Converting string back to dict
+                age_security_dict = ast.literal_eval(os.environ['age_security_warn_dict'])
 
-        print("_________________Code to be Deleted ______________________")
-        print(age_security_dict)
-        print(type(age_security_dict))
-        print(leanix_access_ldif_data)
-        print(list(leanix_access_ldif_data.keys())[0])
-        print(leanix_access_ldif_data[list(leanix_access_ldif_data.keys())[0]])
-        print(age_security_dict[list(leanix_access_ldif_data.keys())[0]])
-        print("_________________Code to be Deleted ______________________")
+            print("_________________Code to be Deleted ______________________")
+            print(age_security_dict)
+            print(type(age_security_dict))
+            print(leanix_access_ldif_data)
+            print(list(leanix_access_ldif_data.keys())[0])
+            print(leanix_access_ldif_data[list(leanix_access_ldif_data.keys())[0]])
+            print(age_security_dict[list(leanix_access_ldif_data.keys())[0]])
+            print("_________________Code to be Deleted ______________________")
 
-        if list(leanix_access_ldif_data.keys())[0] in age_security_dict and \
-                leanix_access_ldif_data[list(leanix_access_ldif_data.keys())[0]] == \
-                age_security_dict[list(leanix_access_ldif_data.keys())[0]]:
-            return True
-        else:
-            return False
+            if list(leanix_access_ldif_data.keys())[0] in age_security_dict and \
+                    leanix_access_ldif_data[list(leanix_access_ldif_data.keys())[0]] == \
+                    age_security_dict[list(leanix_access_ldif_data.keys())[0]]:
+                return True
+            else:
+                return False
+        return False
 
 
 
