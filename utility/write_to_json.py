@@ -31,7 +31,9 @@ class WriteJson:
         with open(r'F:\LeanIX_Assessment\Assessment\assessment.json', 'w') as f1:
             json.dump(playlist, f1)
         # return json.dumps(playlist), age_security_dict
-        return json.dumps(playlist)
+        print("########## Data to Validate.... ################")
+        print(age_security_dict)
+        return json.dumps(playlist), age_security_dict
 
 
 if __name__ == '__main__':

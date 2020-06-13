@@ -1,5 +1,7 @@
 from time import sleep
 from Project.base.selenium_driver import SeleniumDriver as SD
+import os
+import ast
 
 
 class DataModificationCheck(SD):
@@ -43,7 +45,7 @@ class DataModificationCheck(SD):
             age_violation[access_age.split()[0]] = vio_value
             print("Got Age and Security Warn Level..")
             print(age_violation)
-            return True
+            return age_violation
         else:
             return False
 
@@ -59,8 +61,30 @@ class DataModificationCheck(SD):
             print("Click leanIXScanAgentUser..")
             self.perform_action_chains(self._href_user_xpath, 'xpath', 'click')
 
-        # Verify age and violation
-        return self.get_age_and_violation_details()
+        print("Get Age and Security Warn Level form leanIXScanAgentUser..")
+        leanix_scan_agent_data = self.get_age_and_violation_details()
+
+        print("Verifying it against json data..")
+        age_security_dict = None
+        if 'age_security_warn_dict' in os.environ:
+            # Converting string back to dict
+            age_security_dict = ast.literal_eval(os.environ['age_security_warn_dict'])
+
+        print("_________________Code to be Deleted ______________________")
+        print(age_security_dict)
+        print(type(age_security_dict))
+        print(leanix_scan_agent_data)
+        print(list(leanix_scan_agent_data.keys())[0])
+        print(leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]])
+        print(age_security_dict[list(leanix_scan_agent_data.keys())[0]])
+        print("_________________Code to be Deleted ______________________")
+
+        if list(leanix_scan_agent_data.keys())[0] in age_security_dict and \
+                leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]] == \
+                age_security_dict[list(leanix_scan_agent_data.keys())[0]]:
+            return True
+        else:
+            return False
 
     def validate_leanix_access_ldif_bucket(self):
         print("Enter LeanIXAccessLDIFBucket in the search box..")
@@ -75,7 +99,30 @@ class DataModificationCheck(SD):
             self.perform_action_chains(self._href_user_xpath, 'xpath', 'click')
 
         # Verify age and violation
-        return self.get_age_and_violation_details()
+        leanix_access_ldif_data = self.get_age_and_violation_details()
+
+        print("Verifying it against json data..")
+        age_security_dict = None
+        if 'age_security_warn_dict' in os.environ:
+            # Converting string back to dict
+            age_security_dict = ast.literal_eval(os.environ['age_security_warn_dict'])
+
+        print("_________________Code to be Deleted ______________________")
+        print(age_security_dict)
+        print(type(age_security_dict))
+        print(leanix_access_ldif_data)
+        print(list(leanix_access_ldif_data.keys())[0])
+        print(leanix_access_ldif_data[list(leanix_access_ldif_data.keys())[0]])
+        print(age_security_dict[list(leanix_access_ldif_data.keys())[0]])
+        print("_________________Code to be Deleted ______________________")
+
+        if list(leanix_access_ldif_data.keys())[0] in age_security_dict and \
+                leanix_access_ldif_data[list(leanix_access_ldif_data.keys())[0]] == \
+                age_security_dict[list(leanix_access_ldif_data.keys())[0]]:
+            return True
+        else:
+            return False
+
 
 
 

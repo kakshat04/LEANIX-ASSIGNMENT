@@ -1,7 +1,7 @@
 from time import sleep
 from Project.base.selenium_driver import SeleniumDriver as SD
 from Project.utility.write_to_json import WriteJson
-import json
+import os
 
 
 class DataModification(SD):
@@ -56,8 +56,10 @@ class DataModification(SD):
         print("Modifying json file as following - '' for 0-30 days, 'low' for 31-60 days, 'medium' for >60 days")
         # Modify data with required security warn levels
         modify_json = WriteJson()
-        json_data = modify_json.write_security_warn_level()
+        json_data, age_security_warn_dict = modify_json.write_security_warn_level()
         sleep(2)
+
+        os.environ['age_security_warn_dict'] = str(age_security_warn_dict)
 
         print("Json file modified with respective Security Warn Levels....")
 

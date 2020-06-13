@@ -33,8 +33,8 @@ def oneTimeSetUp(request, browser):
     subject = 'Test Email'
     body = 'Execution Report'
     report_path = r'F:\LeanIX_Assessment\Report.html'
-    email = EmailTest(recipient, subject, body, report_path)
-    email.send_email()
+    # email = EmailTest(recipient, subject, body, report_path)
+    # email.send_email()
     print("Running one time tearDown")
 
 

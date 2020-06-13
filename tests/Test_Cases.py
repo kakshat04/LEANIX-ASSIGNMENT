@@ -29,11 +29,11 @@ class LoginTest(unittest.TestCase):
         time.sleep(2)
         assert self.lp.verify_login_successful() is True  # Verify login successful
 
-    @pytest.mark.run(order=3)
-    def test_check_report(self):
-        self.rt.goto_iam_users()
-        assert self.rt.verify_result_report() is True
-
+    # @pytest.mark.run(order=3)
+    # def test_check_report(self):
+    #     self.rt.goto_iam_users()
+    #     assert self.rt.verify_result_report() is True
+    #
     @pytest.mark.run(order=4)
     def test_data_modification(self):
         assert self.dm.navigate_integration_api() is True
