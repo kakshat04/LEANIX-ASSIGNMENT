@@ -153,14 +153,3 @@ class DataModificationCheck(SD):
         print("violationLevelSecurity not present on page..")
         self.log.error("violationLevelSecurity not present on page..")
         return False
-
-
-
-
-
-
-
-
-
-
-
