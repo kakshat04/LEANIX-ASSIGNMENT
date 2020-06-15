@@ -204,18 +204,27 @@ class SeleniumDriver:
 
     def enter_text_in_textarea(self, locator, locator_type, text):
         try:
-            z = self.get_element(locator, locator_type)
-            z.send_keys(Keys.CONTROL + 'a')
-            z.send_keys(Keys.DELETE)
-            # z.send_keys(text)  # This is taking lot of time to enter complete text
+            element = self.get_element(locator, locator_type)
+            element.send_keys(Keys.CONTROL + 'a')
+            element.send_keys(Keys.DELETE)
+            # element.send_keys(text)  # This is taking lot of time to enter complete text
             pyperclip.copy(text)  # Copy text to clipboard
-            z.send_keys(Keys.CONTROL + 'v')
+            element.send_keys(Keys.CONTROL + 'v')
             self.log.info("Text Found successful with locator: " + locator +
                           " and locator type: " + locator_type)
         except:
             self.log.error("Text Found not successful with locator: " + locator +
                            " and locator type: " + locator_type)
 
+    def is_element_enabled(self, locator, locator_type):
+        element = self.get_element(locator, locator_type)
+        button_status = element.is_enabled()
+        if button_status:
+            self.log.info("Button is enabled..")
+            return True
+        else:
+            self.log.info("Button is not enabled..")
+            return False
 
 
 

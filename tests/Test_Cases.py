@@ -37,7 +37,7 @@ class LoginTest(unittest.TestCase):
     @pytest.mark.run(order=4)
     def test_data_modification(self):
         assert self.dm.navigate_integration_api() is True
-        self.dm.data_modify_security_warn_level()
+        assert self.dm.data_modify_security_warn_level() is True
 
     @pytest.mark.run(order=5)
     def test_modification_check(self):

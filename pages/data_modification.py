@@ -92,17 +92,25 @@ class DataModification(SD):
         self.log.info("Json Copying Successfully...")
 
         # click on run -- RUN is enabled if proper json is loaded  ==> Code needs to be modified
-        print("Click on RUN..")
-        self.log.info("Click on RUN..")
-        self.element_click(self._run_button_xpath, 'xpath')
+        print("Verify if JSON file is loaded successfully..")
+        self.log.info("Verify if JSON file is loaded successfully..")
+        run_button_status = self.is_element_enabled(self._run_button_xpath, 'xpath')
+        if run_button_status:
+            print("Click on RUN..")
+            self.log.info("Click on RUN..")
+            self.element_click(self._run_button_xpath, 'xpath')
 
-        print("Waiting for Run to complete")
-        self.log.info("Waiting for Run to complete")
-        sleep(12)
+            print("Waiting for Run to complete")
+            self.log.info("Waiting for Run to complete")
+            sleep(12)
 
-        # if run successful, return True else False
-        print("Data Loaded Successfully...")
-        self.log.info("Data Loaded Successfully...")
+            # if run successful, return True else False
+            print("Data Loaded Successfully...")
+            self.log.info("Data Loaded Successfully...")
+            return True
+        else:
+            self.log.error("JSON file is not loaded successfully..")
+            return False
 
 
 
