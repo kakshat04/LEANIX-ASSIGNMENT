@@ -63,8 +63,6 @@ class DataModification(SD):
         "" for 0 .. 30 days
         "low" for 31 .. 60 days
         "medium" for more than 60 days
-
-        :return:
         """
 
         msg = "Modifying json file as following - '' for 0-30 days, 'low' for 31-60 days, 'medium' for >60 days"
