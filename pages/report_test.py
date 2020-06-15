@@ -25,7 +25,7 @@ class ReportTest(SD):
                    '> 60': "//span[contains(@class,'circle') and contains(@style,'rgb(0, 65, 106)')]"
     }
     _age_limit_list = ['n/a', '0', '> 0', '> 12', '> 24', '> 36', '> 48', '> 60']
-    _verication_lst = [1, 13, 25, 37, 49, 61]
+    _verification_lst = [1, 13, 25, 37, 49, 61]
 
     _iamuser_page_title = "AWS IAM Users with Access Key Age | LeanIX"
 
@@ -73,17 +73,17 @@ class ReportTest(SD):
                 i = 0
                 j = 0
                 # print(age, num, i, j)
-                while j < len(self._verication_lst) - 1:
+                while j < len(self._verification_lst) - 1:
                     j += 1
-                    if self._verication_lst[i] <= int(age) < self._verication_lst[j]:
-                        num = self._verication_lst[i]
+                    if self._verification_lst[i] <= int(age) < self._verification_lst[j]:
+                        num = self._verification_lst[i]
                         break
                     i += 1
                 if num == 0:
-                    num = self._verication_lst[-1]
+                    num = self._verification_lst[-1]
 
-                # +2, as _age_limit_list is 2 more than _verication_lst
-                age_index = self._verication_lst.index(num) + 2
+                # +2, as _age_limit_list is 2 more than _verification_lst
+                age_index = self._verification_lst .index(num) + 2
 
                 # dictionary - age:xpath -- bg color
                 xpath = self._age_map[self._age_limit_list[age_index]]
