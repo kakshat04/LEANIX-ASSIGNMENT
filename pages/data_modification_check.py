@@ -30,12 +30,14 @@ class DataModificationCheck(SD):
         age_violation = {}
 
         print("Click on Show more properties..")
+        self.log.info("Click on Show more properties..")
         self.execute_javascript("window.scrollBy(0,100)")
         sleep(1)
         self.element_click(self._more_properties_xpath, 'xpath')
         sleep(1)
 
         print("Verify if 'violationLevelSecurity' is visible in the property..")
+        self.log.info("Verify if 'violationLevelSecurity' is visible in the property..")
         if self.is_element_present(self._violation_level_security, 'xpath'):
             # Get Access Key age
             access_age = self.get_element_text(self._access_key_age, 'xpath')
@@ -51,14 +53,18 @@ class DataModificationCheck(SD):
             print(age_violation)
             return age_violation
         else:
+            print("violationLevelSecurity not visible in the property..")
+            self.log.error("violationLevelSecurity bot visible in the property..")
             return False
 
     def validate_leanix_scan_agent_user(self):
         print("Enter leanIXScanAgentUser in the search box..")
+        self.log.info("Enter leanIXScanAgentUser in the search box..")
         self.submit(self._search_tab_xpath, "xpath", self._user_adk_name_1)
         sleep(5)
 
         print("Verify if we are new user selection page..")
+        self.log.info("Verify if we are new user selection page..")
         title = self.get_page_title()
         if self._new_user_selection_page_title in title:
             print("Yes, we are inside new user selection page..")
@@ -85,14 +91,20 @@ class DataModificationCheck(SD):
             print(age_security_dict[list(leanix_scan_agent_data.keys())[0]])
             print("_________________Code to be Deleted ______________________")
 
+            # Verify age,violationLevelSecurity in json matches age, violationLevelSecurity in Fact sheet
             if list(leanix_scan_agent_data.keys())[0] in age_security_dict and \
                     leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]] == \
                     age_security_dict[list(leanix_scan_agent_data.keys())[0]]:
+                print("Data Modified Successfully..")
+                self.log.info("Data Modified Successfully..")
                 return True
             else:
+                print("Data not modified Successfully..")
+                self.log.error("Data not modified Successfully..")
                 return False
         else:
             print("violationLevelSecurity not present on page..")
+            self.log.error("violationLevelSecurity not present on page..")
             return False
 
     def validate_leanix_access_ldif_bucket(self):
@@ -127,12 +139,19 @@ class DataModificationCheck(SD):
             print(age_security_dict[list(leanix_access_ldif_data.keys())[0]])
             print("_________________Code to be Deleted ______________________")
 
+            # Verify age,violationLevelSecurity in json matches age, violationLevelSecurity in Fact sheet
             if list(leanix_access_ldif_data.keys())[0] in age_security_dict and \
                     leanix_access_ldif_data[list(leanix_access_ldif_data.keys())[0]] == \
                     age_security_dict[list(leanix_access_ldif_data.keys())[0]]:
+                print("Data Modified Successfully..")
+                self.log.info("Data Modified Successfully..")
                 return True
             else:
+                print("Data not modified Successfully..")
+                self.log.error("Data not modified Successfully..")
                 return False
+        print("violationLevelSecurity not present on page..")
+        self.log.error("violationLevelSecurity not present on page..")
         return False
 
 
