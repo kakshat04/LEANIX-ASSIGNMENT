@@ -17,7 +17,8 @@ class LoginPage(SD):
     _password_field_name = "j_password"
     _login_button_xpath = "//button[contains(text(),'Login')]"
     _login_success_field_id = "tourWhatsNew"
-    _login_failed_class_name = "alert alert-danger"
+    _login_failed_text_xpath = "//div[contains(text(),'This combination of email and password " \
+                               "is not correct')]"
 
     def enter_email(self, email):
         # self.sd.enter_keys(self._email_field_id, 'id', email) # When done without Inheritance
@@ -43,8 +44,8 @@ class LoginPage(SD):
 
     def verify_login_successful(self):
         # Clicking Dashboard, because of error in page
-        self.element_click("//span[contains(@class,'hideForSmall') and contains(text(),'Dashboard')]", "xpath")
-        sleep(1)
+        # self.element_click("//span[contains(@class,'hideForSmall') and contains(text(),'Dashboard')]", "xpath")
+        # sleep(1)
         is_login_success = self.is_element_present(self._login_success_field_id, 'id')
         if is_login_success:
             self.log.info("Login Successful...")
@@ -56,8 +57,7 @@ class LoginPage(SD):
             return False
 
     def verify_login_failed(self):
-        is_login_fail = self.is_element_present("//div[contains(text(),'This combination of email and password "
-                                                "is not correct')]", 'xpath')
+        is_login_fail = self.is_element_present(self._login_failed_text_xpath, 'xpath')
         if is_login_fail:
             self.log.info("Login Failed...")
             print("Login Failed...")

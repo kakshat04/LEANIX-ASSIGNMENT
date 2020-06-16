@@ -19,7 +19,7 @@ class LoginTest(unittest.TestCase):
 
     # @pytest.mark.run(order=1)
     # def test_invalid_login(self):
-    #     self.lp.login_page(email="1002@gmail.com", password="acbacb")
+    #     self.lp.login_page(email="invalidemail@gmail.com", password="invalid_password")
     #     time.sleep(2)
     #     assert self.lp.verify_login_failed() is True  # Verify login not successful
 

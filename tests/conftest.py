@@ -15,7 +15,7 @@ def oneTimeSetUp(request, browser):
         driver.get(baseURL)
         print("Running tests on FF")
     else:
-        baseURL = "https://demo-eu.leanix.net/akkDemo /"
+        baseURL = "https://demo-eu.leanix.net/akkDemo/"
         driver = webdriver.Chrome()
         driver.maximize_window()
         driver.implicitly_wait(3)

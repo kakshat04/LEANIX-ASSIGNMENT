@@ -82,15 +82,6 @@ class DataModificationCheck(SD):
                 # Converting string back to dict
                 age_security_dict = ast.literal_eval(os.environ['age_security_warn_dict'])
 
-            print("_________________Code to be Deleted ______________________")
-            print(age_security_dict)
-            print(type(age_security_dict))
-            print(leanix_scan_agent_data)
-            print(list(leanix_scan_agent_data.keys())[0])
-            print(leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]])
-            print(age_security_dict[list(leanix_scan_agent_data.keys())[0]])
-            print("_________________Code to be Deleted ______________________")
-
             # Verify age,violationLevelSecurity in json matches age, violationLevelSecurity in Fact sheet
             if list(leanix_scan_agent_data.keys())[0] in age_security_dict and \
                     leanix_scan_agent_data[list(leanix_scan_agent_data.keys())[0]] == \
@@ -129,15 +120,6 @@ class DataModificationCheck(SD):
             if 'age_security_warn_dict' in os.environ:
                 # Converting string back to dict
                 age_security_dict = ast.literal_eval(os.environ['age_security_warn_dict'])
-
-            print("_________________Code to be Deleted ______________________")
-            print(age_security_dict)
-            print(type(age_security_dict))
-            print(leanix_access_ldif_data)
-            print(list(leanix_access_ldif_data.keys())[0])
-            print(leanix_access_ldif_data[list(leanix_access_ldif_data.keys())[0]])
-            print(age_security_dict[list(leanix_access_ldif_data.keys())[0]])
-            print("_________________Code to be Deleted ______________________")
 
             # Verify age,violationLevelSecurity in json matches age, violationLevelSecurity in Fact sheet
             if list(leanix_access_ldif_data.keys())[0] in age_security_dict and \
