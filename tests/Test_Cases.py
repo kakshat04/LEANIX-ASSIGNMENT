@@ -34,12 +34,12 @@ class LoginTest(unittest.TestCase):
         self.rt.goto_iam_users()
         assert self.rt.verify_result_report() is True
 
-    @pytest.mark.run(order=4)
-    def test_data_modification(self):
-        assert self.dm.navigate_integration_api() is True
-        assert self.dm.data_modify_security_warn_level() is True
-
-    @pytest.mark.run(order=5)
-    def test_modification_check(self):
-        assert self.dmc.validate_leanix_scan_agent_user() is True
-        assert self.dmc.validate_leanix_access_ldif_bucket() is True
+    # @pytest.mark.run(order=4)
+    # def test_data_modification(self):
+    #     assert self.dm.navigate_integration_api() is True
+    #     assert self.dm.data_modify_security_warn_level() is True
+    #
+    # @pytest.mark.run(order=5)
+    # def test_modification_check(self):
+    #     assert self.dmc.validate_leanix_scan_agent_user() is True
+    #     assert self.dmc.validate_leanix_access_ldif_bucket() is True
