@@ -1,37 +1,9 @@
-Login:
-1. Invalid Login
-2. Valid Login
+- Please create a public repo on Git
 
-Report Verification:
-1. Valid Report Validation:
-	a. Successful navigation “AWS IAM Users with Access Key Age"
-	b. Validate Report
-		i- Get ADK_Name and AccessKeyAge from assessment.json
-		ii- Verify Age Limit, Color Code & UserName against data mentioned in JSON File.
-2. Invalid Report Validation:
-	a. Successful navigation “AWS IAM Users with Access Key Age"
-	b. Validate Report
-		i- Get ADK_Name and AccessKeyAge from assessment.json
-		ii. Mismatch in Age Limit, Color Code & UserName against data mentioned in JSON File[This usecase can only 
-		be validated when wrong data is populated in the report]
+- Create automation tests for the following scenarios:
 
-Data Modification:
-1. Navigate to Administration -> Integration API -> cloudockit(Connector Type)
-2. Extend CDK-AWS-IamUser with following(update assessment.json) :
-	a. “” for 0 .. 30 days
-	b. “low” for 31 .. 60 days
-	c. “medium” for more than 60 days
-3. Load assessment.json at LDIF section.
-4. click RUN
+1. add to cart a random product from Parfum category
+2. on the Cart page to verify if we are displaying the correct price
+3. verify the main navigation menu links
 
-Data Modification Check:
-1. Valid Check:
-	i. Navigate to "leanIXScanAgentUser"
-	ii. Verify "violationLevelSecurity" is updated now
-	iii.Navigate to "LeanIXAccessLDIFBucket"
-	iv. Verify "violationLevelSecurity" is updated now
-2. Invalid Check:
-	i. "violationLevelSecurity" is not as per ldif loaded
-	ii.""violationLevelSecurity" is not displayed at all
-	iii. Wrong json format is loaded(RUN not visiable)
-
+URL: https://www.flaconi.de/
